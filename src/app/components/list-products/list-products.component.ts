@@ -3,11 +3,12 @@ import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ProgressBarComponent],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
@@ -32,6 +33,7 @@ export class ListProductsComponent {
     },
   ]
   */
+  loading: boolean = false;
   listProducts: Product[] = []
 
 
@@ -44,13 +46,22 @@ export class ListProductsComponent {
   }
   
 
+  //Recupera los productos del backend
   getListProducts() {
-    this._productService.getListProducts().subscribe((data) => {
+    this.loading = true;
+    this._productService.getListProducts().subscribe((data: Product[]) => {
       //console.log(data)
       this.listProducts = data;
+      this.loading = false;
     })
   }
 
-
+  deleteProduct(id: number){
+    //console.log(id);
+    this.loading = true;
+    this._productService.deleteProduct(id).subscribe(()=> {
+      this.getListProducts();
+    })
+  }
 
 }

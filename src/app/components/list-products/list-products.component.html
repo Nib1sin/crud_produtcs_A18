@@ -1,4 +1,5 @@
-<div class="container">
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="container">
     <div class="title">
         <h4>Estado de Productos</h4>
         <button routerLink="/add" type="button" class="btn btn-success">Agregar Producto</button>
@@ -22,7 +23,7 @@
             <td>{{ item.stock }}</td>
             <td>
                 <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-warning"> ? </button>
-                <button type="button" class="btn btn-danger ms-1"> x </button>
+                <button (click)="deleteProduct(item.id!)" type="button" class="btn btn-danger ms-1"> x </button>
             </td>
           </tr>
           
