@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-list-products',
@@ -28,5 +29,23 @@ export class ListProductsComponent {
       stock: 200
     },
   ]
+
+
+  constructor(private _productService: ProductService) {
+
+  }
+
+  ngOnInit(): void{
+    this.getListProducts();
+  }
+  
+
+  getListProducts() {
+    this._productService.getListProducts().subscribe((data) => {
+      console.log(data)
+    })
+  }
+
+
 
 }
