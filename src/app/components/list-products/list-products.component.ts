@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-products',
@@ -14,30 +15,13 @@ import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.com
 })
 export class ListProductsComponent {
   
-  /*
-  listProducts: Product[] = [
-    /*
-    { 
-      id: 1,
-      name: 'Coca Cola', 
-      description: 'Bebida azucarada', 
-      price: 4, 
-      stock: 500
-    },
-    { 
-      id: 2,
-      name: 'Ceres', 
-      description: 'Bebida con alcohol', 
-      price: 10, 
-      stock: 200
-    },
-  ]
-  */
   loading: boolean = false;
   listProducts: Product[] = []
 
 
-  constructor(private _productService: ProductService) {
+  constructor(
+    private _productService: ProductService,
+    private toastr: ToastrService) {
 
   }
 
@@ -61,6 +45,7 @@ export class ListProductsComponent {
     this.loading = true;
     this._productService.deleteProduct(id).subscribe(()=> {
       this.getListProducts();
+      this.toastr.warning('El producto fue eliminado con exito', 'Producto Eliminado');
     })
   }
 
