@@ -1,1 +1,32 @@
-<p>list-products works!</p>
+<div class="container">
+    <div class="title">
+        <h4>Estado de Productos</h4>
+        <button routerLink="/add" type="button" class="btn btn-success">Agregar Producto</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listProducts" class="table-active">
+            <td >{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.stock }}</td>
+            <td>
+                <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-warning"> ? </button>
+                <button type="button" class="btn btn-danger ms-1"> x </button>
+            </td>
+          </tr>
+          
+      </table>
+</div>
+
+
