@@ -1,1 +1,46 @@
-<p>add-edit-product works!</p>
+<div class="row mt-4">
+    <div class="col-lg-4 offset-lg-4">
+        <!--Card de  https://bootswatch.com/darkly/-->
+        <div class="card border-success mb-3" style="max-width: 25rem;">
+        <div class="card-header text-center">Agregar Producto</div>
+        <div class="card-body">
+
+            <form [formGroup]="form" (ngSubmit)="addProduct()">
+                <input formControlName="name" type="text" class="form-control" placeholder="Ingrese Nombre">
+                <span *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')" class="ms-2">
+                    El campo nonbre es <strong>requerido</strong>.
+                </span>
+                
+                <input formControlName="description" type="text" class="form-control mt-2" placeholder="Ingrese Descripcion">
+                <span *ngIf="form.get('name')?.touched && form.get('description')?.hasError('required')" class="ms-2">
+                    El campo descripción es <strong>requerido</strong>.
+                </span>
+
+                <input formControlName="price" type="number" class="form-control mt-2" placeholder="Ingrese Precio">
+                <span *ngIf="form.get('name')?.touched && form.get('price')?.hasError('required')" class="ms-2">
+                    El campo precio es <strong>requerido</strong>.
+                </span>
+                <span *ngIf="form.get('name')?.touched && form.get('price')?.hasError('nonNegative')" class="ms-2">
+                    El precio debe ser un valor <strong>positivo</strong>.
+                </span>
+
+                <input formControlName="stock" type="number" class="form-control mt-2" placeholder="Ingrese Stock">
+                <span *ngIf="form.get('name')?.touched && form.get('stock')?.hasError('required')" class="ms-2">
+                    El campo stock es <strong>requerido</strong>.
+                </span>
+
+                <div class="row mt-3 text-center">
+                    <div class="col-lg-6">
+                        <button routerLink="/" type="button" class="btn btn-secondary">Volver</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-success">Aceptar</button>     
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        </div>
+    </div>
+</div>
+
