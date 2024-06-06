@@ -12,8 +12,10 @@ import { ProductService } from '../../services/product.service';
   styleUrl: './list-products.component.css'
 })
 export class ListProductsComponent {
-
+  
+  /*
   listProducts: Product[] = [
+    /*
     { 
       id: 1,
       name: 'Coca Cola', 
@@ -29,6 +31,8 @@ export class ListProductsComponent {
       stock: 200
     },
   ]
+  */
+  listProducts: Product[] = []
 
 
   constructor(private _productService: ProductService) {
@@ -42,7 +46,8 @@ export class ListProductsComponent {
 
   getListProducts() {
     this._productService.getListProducts().subscribe((data) => {
-      console.log(data)
+      //console.log(data)
+      this.listProducts = data;
     })
   }
 
