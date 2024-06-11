@@ -1,24 +1,33 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { nonNegativePriceValidator } from '../../utils/validators';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../interfaces/product';
+import { ProductService } from '../../services/product.service';
+import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-product',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, ProgressBarComponent],
   templateUrl: './add-edit-product.component.html',
   styleUrl: './add-edit-product.component.css'
 })
 export class AddEditProductComponent {
-[x: string]: any;
 
+  //[x: string]: any;
   form: FormGroup;
+  loading: boolean= false;
 
-
-  constructor(private fb: FormBuilder){
+  constructor(
+    private fb: FormBuilder,
+    private _productService: ProductService,
+    //Injeccion con typeScript
+    private router: Router,
+    private toastr: ToastrService
+  ){
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', Validators.required],
@@ -39,10 +48,13 @@ export class AddEditProductComponent {
 
 
     if (this.form.valid) {
-      console.log(this.form.value);
-      // Aquí puedes añadir la lógica para agregar el producto, por ejemplo, enviar los datos a un servidor
+      this.loading = true;
+      this._productService.saveProduct(product).subscribe(()=> {
+        this.loading = false;
+        this.toastr.success(`El producto ${product.name} ha sido agregado`, 'Producto Registrado');
+        this.router.navigate(['/']);
+      })
     }
-    
   }
 
 }

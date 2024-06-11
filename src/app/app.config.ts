@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimations(), // required animations providers
     provideToastr({
-      timeOut: 10000,
+      timeOut: 8000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),

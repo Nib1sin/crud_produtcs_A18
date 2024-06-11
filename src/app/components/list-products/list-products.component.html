@@ -22,12 +22,15 @@
             <td>{{ item.price | currency }}</td>
             <td>{{ item.stock }}</td>
             <td>
+                <!--Inyectamos el componente con routerLink-->
                 <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-warning"> ? </button>
                 <button (click)="deleteProduct(item.id!)" type="button" class="btn btn-danger ms-1"> x </button>
             </td>
           </tr>
           
       </table>
+
+      <h5 *ngIf="listProducts.length == 0">No hay productos para mostrar</h5>
 </div>
 
 
